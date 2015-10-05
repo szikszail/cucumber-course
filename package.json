@@ -1,0 +1,20 @@
+{
+  "name": "cucumber-course",
+  "description": "Sample project for CucumberJS testing.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/szikszail/cucumber-course.git"
+  },
+  "devDependencies": {
+    "cucumber": "latest",
+    "selenium-webdriver": "latest",
+    "chai": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-exec": "latest",
+    "grunt-env": "latest",
+    "sanitize-filename": "latest"
+  },
+  "license": "ISC"
+}
