@@ -9,6 +9,6 @@ module.exports = function() {
         this.driver.getCurrentUrl().then(function(url){
             expect(url).to.contain('epam-debrecen.blogspot.hu');
             callback();
-        }, callback);
+        });
     });
 };
