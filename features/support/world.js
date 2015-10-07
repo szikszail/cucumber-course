@@ -27,11 +27,15 @@ var World = function World(callback) {
         fs.mkdirSync(screenshotPath);
     }
 
-    this.waitFor = function(cssLocator, timeout) {
+    this.waitFor = function(cssLocatorOfFn, timeout) {
         var waitTimeout = timeout || defaultTimeout;
-        return driver.wait(function() {
-            return driver.isElementPresent({ css: cssLocator });
-        }, waitTimeout);
+        if (typeof cssLocatorOfFn === "function") {
+            return driver.wait(cssLocatorOfFn, waitTimeout);
+        } else {
+            return driver.wait(function () {
+                return driver.isElementPresent({css: cssLocatorOfFn});
+            }, waitTimeout);
+        }
     };
 
     callback();

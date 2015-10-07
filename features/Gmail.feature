@@ -1,3 +1,4 @@
+@ignore
 Feature: Check my incoming messages under Gmail
 	As a gmail user
 	I want to check my incoming messages
