@@ -7,7 +7,7 @@
     "url": "git+https://bitbucket.org/szikszail/cucumber-course.git"
   },
   "devDependencies": {
-    "cucumber": "0.4.8",
+    "cucumber": "0.7.0",
     "selenium-webdriver": "latest",
     "chai": "latest",
     "grunt-cli": "latest",

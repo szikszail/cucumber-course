@@ -16,10 +16,8 @@ var myHooks = function () {
                 });
             });
         }
-        this.driver.manage().deleteAllCookies()
-            .then(function() {
-                callback();
-            });
+        this.driver.manage().deleteAllCookies();
+        callback();
     });
 
     this.registerHandler('AfterFeatures', function (event, callback) {

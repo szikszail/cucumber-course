@@ -27,13 +27,22 @@ var World = function World(callback) {
         fs.mkdirSync(screenshotPath);
     }
 
-    this.waitFor = function(cssLocatorOfFn, timeout) {
+    this.waitFor = function(locatorOfFn, timeout) {
         var waitTimeout = timeout || defaultTimeout;
-        if (typeof cssLocatorOfFn === "function") {
-            return driver.wait(cssLocatorOfFn, waitTimeout);
+        if (typeof locatorOfFn === "function") {
+            return driver.wait(locatorOfFn, waitTimeout);
         } else {
+            if (typeof locatorOfFn === "string") {
+                locatorOfFn = {css: locatorOfFn};
+            }
             return driver.wait(function () {
-                return driver.isElementPresent({css: cssLocatorOfFn});
+                return driver.isElementPresent(locatorOfFn).then(function(present) {
+                    if (!present) {
+                        return false;
+                    } else {
+                        return driver.findElement(locatorOfFn).isDisplayed();
+                    }
+                });
             }, waitTimeout);
         }
     };
