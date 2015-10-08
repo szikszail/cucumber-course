@@ -13,20 +13,18 @@ This is a sample Cucumber project for QA Course, demonstrating test automation.
 
 ### Windows
 
-    $ install.bat
+    $> install.bat
     
 ### Linux
 
-    $ sh install.sh
+    $> sh install.sh
     
 ### Manual
 
-    $ npm i -g grunt-cli
-    $ npm i -g selenium-webdriver
-    $ npm i -g cucumber
-    $ webdriver-manager update
-    $ npm i
+    $> npm i -g grunt-cli selenium-webdriver cucumber@0.7.0
+    $> webdriver-manager update
+    $> npm i
     
 ## Running tests
 
-    $ grunt
+    $> grunt
