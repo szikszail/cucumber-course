@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run E2E tests" type="js.build_tools.grunt" factoryName="Grunt.js">
+    <gruntfile value="D:\Work\qa\cucumber-course\Gruntfile.js" />
+    <pass-parent-env-vars value="true" />
+    <force value="false" />
+    <verbose value="false" />
+    <envs />
+    <method />
+  </configuration>
+</component>
