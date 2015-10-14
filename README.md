@@ -25,6 +25,10 @@ This is a sample Cucumber project for QA Course, demonstrating test automation.
     $> webdriver-manager update
     $> npm i
     
+## ChromeDriver
+
+After the installation finished, extract `chromedriver_win32.zip` to `C:\Windows\System32`.
+    
 ## Running tests
 
     $> grunt
