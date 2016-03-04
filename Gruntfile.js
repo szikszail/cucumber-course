@@ -2,7 +2,7 @@
 
 var path = require('path');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
         env: {
             chrome: {
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 
         exec: {
             run_cucumber_tests: {
-                command: 'node ' + path.join('node_modules', 'cucumber',  'bin', 'cucumber.js -f pretty -t ~@ignore')
+                command: 'node ' + path.join('node_modules', 'cucumber', 'bin', 'cucumber.js -f pretty -t ~@ignore')
             }
         }
 

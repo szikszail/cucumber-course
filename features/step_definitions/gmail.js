@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 
-module.exports = function() {
+module.exports = function () {
     this.World = require('../support/world.js').World;
 
     var EMAIL_INPUT_SELECTOR = '#Email',
@@ -30,23 +30,23 @@ module.exports = function() {
         var self = this;
         this.driver.get('http://gmail.com');
         this.waitFor(NEED_HELP_SELECTOR);
-        this.driver.findElement({ css: EMAIL_INPUT_SELECTOR }).isDisplayed().then(function(displayed) {
+        this.driver.findElement({css: EMAIL_INPUT_SELECTOR}).isDisplayed().then(function (displayed) {
             if (displayed) {
-                self.driver.findElement({ css: EMAIL_INPUT_SELECTOR }).sendKeys('epamdebrecenta');
-                self.driver.findElement({ css: NEXT_BUTTON_SELECTOR }).click();
+                self.driver.findElement({css: EMAIL_INPUT_SELECTOR}).sendKeys('epamdebrecenta');
+                self.driver.findElement({css: NEXT_BUTTON_SELECTOR}).click();
                 self.waitFor(PWD_INPUT_SELECTOR);
             }
         });
-        this.driver.findElement({ css: PWD_INPUT_SELECTOR }).sendKeys('Pass1212');
-        this.driver.findElement({ css: LOGIN_BUTTON_SELECTOR }).click();
+        this.driver.findElement({css: PWD_INPUT_SELECTOR}).sendKeys('Pass1212');
+        this.driver.findElement({css: LOGIN_BUTTON_SELECTOR}).click();
         return this.waitFor(getMenuItemSelector('inbox'));
     });
 
     this.When(/^I click on "([^"]+)" menu item$/, function (menu) {
         var self = this;
         this.driver.findElement(getMenuItemSelector(menu)).click();
-        return this.waitFor(function(){
-            return self.driver.getCurrentUrl().then(function(url){
+        return this.waitFor(function () {
+            return self.driver.getCurrentUrl().then(function (url) {
                 return new RegExp('#' + menu + '$').test(url);
             });
         });
@@ -58,14 +58,14 @@ module.exports = function() {
     });
 
     this.Then(/^the first result should be "([^"]+)"$/, function (title, callback) {
-        this.driver.findElement({ xpath: FIRST_RESULT_XPATH }).getText().then(function(text) {
+        this.driver.findElement({xpath: FIRST_RESULT_XPATH}).getText().then(function (text) {
             expect(text).to.equal(title);
             callback();
         }, callback);
     });
 
     this.Then(/^the number of the "([^"]+)" results should be (\d+)$/, function (title, results, callback) {
-        this.driver.findElements({ xpath: ALL_RESULTS_XPATH }).then(function(elements) {
+        this.driver.findElements({xpath: ALL_RESULTS_XPATH}).then(function (elements) {
             expect(elements.length).to.equal(+results);
             callback();
         }, callback);
@@ -73,9 +73,9 @@ module.exports = function() {
 
     this.Then(/^the text "([^"]+)" should be (displayed|hidden)$/, function (text, status, callback) {
         var self = this;
-        this.driver.isElementPresent(getElementWithTextSelector(text)).then(function(isPresent){
+        this.driver.isElementPresent(getElementWithTextSelector(text)).then(function (isPresent) {
             if (isPresent) {
-                self.driver.findElement(getElementWithTextSelector(text)).isDisplayed().then(function(displayed){
+                self.driver.findElement(getElementWithTextSelector(text)).isDisplayed().then(function (displayed) {
                     expect(displayed).to.equal(status === "displayed");
                     callback();
                 }, callback);

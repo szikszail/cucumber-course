@@ -3,30 +3,26 @@
 var fs = require('fs');
 var webdriver = require('selenium-webdriver');
 
-var buildChromeDriver = function() {
-    return new webdriver.Builder().
-        withCapabilities(webdriver.Capabilities.chrome()).
-        build();
+var buildChromeDriver = function () {
+    return new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
 };
 var driver = buildChromeDriver();
 
-var getDriver = function() {
+var getDriver = function () {
     return driver;
 };
 
 var World = function World() {
-
     var defaultTimeout = 20000;
     var screenshotPath = "screenshots";
 
-    this.webdriver = webdriver;
     this.driver = driver;
 
-    if(!fs.existsSync(screenshotPath)) {
+    if (!fs.existsSync(screenshotPath)) {
         fs.mkdirSync(screenshotPath);
     }
 
-    this.waitFor = function(locatorOfFn, timeout) {
+    this.waitFor = function (locatorOfFn, timeout) {
         var waitTimeout = timeout || defaultTimeout;
         if (typeof locatorOfFn === "function") {
             return driver.wait(locatorOfFn, waitTimeout);
@@ -35,7 +31,7 @@ var World = function World() {
                 locatorOfFn = {css: locatorOfFn};
             }
             return driver.wait(function () {
-                return driver.isElementPresent(locatorOfFn).then(function(present) {
+                return driver.isElementPresent(locatorOfFn).then(function (present) {
                     if (!present) {
                         return false;
                     } else {
