@@ -26,7 +26,7 @@ module.exports = function() {
         return {xpath: '//*[contains(normalize-space(.), "' + text + '")]'};
     }
 
-    this.Given(/^I login to my gmail account$/, function (callback) {
+    this.Given(/^I login to my gmail account$/, function () {
         var self = this;
         this.driver.get('http://gmail.com');
         this.waitFor(NEED_HELP_SELECTOR);
@@ -39,39 +39,36 @@ module.exports = function() {
         });
         this.driver.findElement({ css: PWD_INPUT_SELECTOR }).sendKeys('Pass1212');
         this.driver.findElement({ css: LOGIN_BUTTON_SELECTOR }).click();
-        this.waitFor(getMenuItemSelector('inbox'));
-        callback();
+        return this.waitFor(getMenuItemSelector('inbox'));
     });
 
-    this.When(/^I click on "([^"]+)" menu item$/, function (menu, callback) {
+    this.When(/^I click on "([^"]+)" menu item$/, function (menu) {
         var self = this;
         this.driver.findElement(getMenuItemSelector(menu)).click();
-        this.waitFor(function(){
+        return this.waitFor(function(){
             return self.driver.getCurrentUrl().then(function(url){
                 return new RegExp('#' + menu + '$').test(url);
             });
         });
-        callback();
     });
 
-    this.When(/^I click on the result "([^"]+)"$/, function (result, callback) {
+    this.When(/^I click on the result "([^"]+)"$/, function (result) {
         this.driver.findElement(getResultSelector(result)).click();
-        this.waitFor(SUBJECT_HEADER_SELECTOR);
-        callback();
+        return this.waitFor(SUBJECT_HEADER_SELECTOR);
     });
 
     this.Then(/^the first result should be "([^"]+)"$/, function (title, callback) {
         this.driver.findElement({ xpath: FIRST_RESULT_XPATH }).getText().then(function(text) {
             expect(text).to.equal(title);
             callback();
-        });
+        }, callback);
     });
 
     this.Then(/^the number of the "([^"]+)" results should be (\d+)$/, function (title, results, callback) {
         this.driver.findElements({ xpath: ALL_RESULTS_XPATH }).then(function(elements) {
             expect(elements.length).to.equal(+results);
             callback();
-        });
+        }, callback);
     });
 
     this.Then(/^the text "([^"]+)" should be (displayed|hidden)$/, function (text, status, callback) {
@@ -81,11 +78,11 @@ module.exports = function() {
                 self.driver.findElement(getElementWithTextSelector(text)).isDisplayed().then(function(displayed){
                     expect(displayed).to.equal(status === "displayed");
                     callback();
-                });
+                }, callback);
             } else {
                 expect(false).to.equal(status === "displayed");
                 callback();
             }
-        });
+        }, callback);
     });
 };

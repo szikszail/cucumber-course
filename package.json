@@ -4,12 +4,13 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/szikszail/cucumber-course.git"
+    "url": "git+https://github.com/szikszail/cucumber-course.git"
   },
   "devDependencies": {
-    "cucumber": "0.7.0",
-    "selenium-webdriver": "2.47.0",
-    "chai": "3.3.0",
+    "cucumber": "0.9.5",
+    "selenium-webdriver": "2.52.0",
+    "chai": "3.5.0",
+    "grunt": "0.4.5",
     "grunt-cli": "0.1.13",
     "grunt-contrib-jshint": "0.11.3",
     "grunt-exec": "0.4.6",

@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var webdriver = require('selenium-webdriver');
-var platform = process.env.PLATFORM || "CHROME";
 
 var buildChromeDriver = function() {
     return new webdriver.Builder().
@@ -15,7 +14,7 @@ var getDriver = function() {
     return driver;
 };
 
-var World = function World(callback) {
+var World = function World() {
 
     var defaultTimeout = 20000;
     var screenshotPath = "screenshots";
@@ -46,8 +45,6 @@ var World = function World(callback) {
             }, waitTimeout);
         }
     };
-
-    callback();
 };
 
 module.exports.World = World;
