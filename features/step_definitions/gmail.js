@@ -9,8 +9,10 @@ module.exports = function () {
         PWD_INPUT_SELECTOR = '#Passwd',
         NEXT_BUTTON_SELECTOR = '#next',
         LOGIN_BUTTON_SELECTOR = '#signIn',
+        SIGN_IN_BUTTON_SELECTOR = '#gmail-sign-in',
         SUBJECT_HEADER_SELECTOR = 'h2.hP',
         NEED_HELP_SELECTOR = '.need-help',
+        ABOUT_SELECTOR = 'a[href*="about"]',
         FIRST_RESULT_XPATH = '//tr[contains(@class,"zA")][1]/td/div/div/div/span',
         ALL_RESULTS_XPATH = '//tr[contains(@class,"zA")]';
 
@@ -29,7 +31,13 @@ module.exports = function () {
     this.Given(/^I login to my gmail account$/, function () {
         var self = this;
         this.driver.get('http://gmail.com');
-        this.waitFor(NEED_HELP_SELECTOR);
+        this.waitFor(ABOUT_SELECTOR);
+        this.driver.isElementPresent({css: SIGN_IN_BUTTON_SELECTOR}).then(function (present) {
+            if (present) {
+                self.driver.findElement({css: SIGN_IN_BUTTON_SELECTOR}).click();
+                self.waitFor(NEED_HELP_SELECTOR);
+            }
+        });
         this.driver.findElement({css: EMAIL_INPUT_SELECTOR}).isDisplayed().then(function (displayed) {
             if (displayed) {
                 self.driver.findElement({css: EMAIL_INPUT_SELECTOR}).sendKeys('epamdebrecenta');
