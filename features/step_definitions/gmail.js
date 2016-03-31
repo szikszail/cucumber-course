@@ -37,14 +37,14 @@ module.exports = function () {
                 self.driver.findElement({css: SIGN_IN_BUTTON_SELECTOR}).click();
                 self.waitFor(NEED_HELP_SELECTOR);
             }
-        });
+        }, callback);
         this.driver.findElement({css: EMAIL_INPUT_SELECTOR}).isDisplayed().then(function (displayed) {
             if (displayed) {
                 self.driver.findElement({css: EMAIL_INPUT_SELECTOR}).sendKeys('epamdebrecenta');
                 self.driver.findElement({css: NEXT_BUTTON_SELECTOR}).click();
                 self.waitFor(PWD_INPUT_SELECTOR);
             }
-        });
+        }, callback);
         this.driver.findElement({css: PWD_INPUT_SELECTOR}).sendKeys('Pass1212');
         this.driver.findElement({css: LOGIN_BUTTON_SELECTOR}).click();
         return this.waitFor(getMenuItemSelector('inbox'));
