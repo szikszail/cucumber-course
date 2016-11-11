@@ -1,3 +1,3 @@
 #!/bin/sh
-npm i -g grunt@0.4.5
+npm i -g grunt@1.0.1
 npm i

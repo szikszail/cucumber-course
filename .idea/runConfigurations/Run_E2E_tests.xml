@@ -1,10 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run E2E tests" type="js.build_tools.grunt" factoryName="Grunt.js">
+    <node-interpreter value="project" />
     <gruntfile value="$PROJECT_DIR$/Gruntfile.js" />
     <pass-parent-env-vars value="true" />
     <envs />
-    <force value="false" />
-    <verbose value="false" />
     <method />
   </configuration>
 </component>
