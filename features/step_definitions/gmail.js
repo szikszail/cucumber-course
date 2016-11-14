@@ -1,5 +1,8 @@
 'use strict';
 module.exports = function () {
+    var driver = global.driver;
+    var expect = global.expect;
+
     var EMAIL_INPUT_SELECTOR = '#Email',
         PWD_INPUT_SELECTOR = '#Passwd',
         NEXT_BUTTON_SELECTOR = '#next',
@@ -24,7 +27,6 @@ module.exports = function () {
     }
 
     this.Given(/^I login to my gmail account$/, function () {
-        var self = this;
         driver.get('http://gmail.com');
         driver.waitFor(ABOUT_SELECTOR);
         driver.isElementPresent({css: SIGN_IN_BUTTON_SELECTOR}).then(function (present) {

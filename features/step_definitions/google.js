@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function () {
+    var driver = global.driver;
+    var expect = global.expect;
 
     var INPUT_FIELD_SELECTOR = 'input[type="text"][name="q"]',
         FIRST_SEARCH_RESULT = '.srg > .g:first-child',
@@ -17,7 +19,7 @@ module.exports = function () {
     });
 
     this.When(/^the text "([^"]+)" is clicked$/, function (title) {
-        return this.driver.getCurrentUrl().then(function (prevUrl) {
+        return driver.getCurrentUrl().then(function (prevUrl) {
             driver.findElement({xpath: '//*[@class="r"]/a[normalize-space(.)="' + title + '"]'}).click();
             return driver.waitFor(function () {
                 return driver.getCurrentUrl().then(function (url) {
