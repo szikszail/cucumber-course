@@ -1,28 +1,55 @@
 'use strict';
 
-var driver = require('./world.js').getDriver();
+require('chromedriver');
+
 var fs = require('fs');
 var path = require('path');
 var sanitize = require("sanitize-filename");
+var webdriver = require('selenium-webdriver');
 
-var myHooks = function () {
+global.driver = new webdriver.Builder().forBrowser('chrome').build();
 
-    this.After(function (scenario, callback) {
-        if (scenario.isFailed()) {
-            this.driver.takeScreenshot().then(function (data) {
-                var base64Data = data.replace(/^data:image\/png;base64,/, "");
-                fs.writeFile(path.join('screenshots', sanitize(scenario.getName() + ".png").replace(/ /g, "_")), base64Data, 'base64', function (err) {
-                    if (err) console.log(err);
-                });
+Object.assign(global.driver, {
+    isElementVisible: function (locator) {
+        return global.driver.isElementPresent(locator).then(function (present) {
+            if (!present) {
+                return false;
+            }
+            return global.driver.findElement(locator).isDisplayed().then(null, function () {
+                return false;
             });
+        });
+    },
+    waitFor: function (locatorOfFn, timeout) {
+        const waitTimeout = timeout || 60 * 1e3;
+        if (typeof locatorOfFn === "function") {
+            return global.driver.wait(locatorOfFn, waitTimeout);
+        } else {
+            if (typeof locatorOfFn === "string") {
+                locatorOfFn = {css: locatorOfFn};
+            }
+            return global.driver.wait(() => global.driver.isElementVisible(locatorOfFn), waitTimeout);
         }
-        this.driver.manage().deleteAllCookies();
-        callback();
+    }
+});
+
+const myHooks = function () {
+    this.registerHandler('BeforeFeatures', function () {
+        return global.driver.manage().window().maximize();
     });
 
-    this.registerHandler('AfterFeatures', function (event, callback) {
-        driver.close();
-        callback();
+    this.registerHandler('AfterFeatures', function () {
+        return global.driver.quit();
+    });
+
+    this.After(function (scenario) {
+        if (scenario.isFailed()) {
+            global.driver.takeScreenshot().then(function (data) {
+                var base64Data = data.replace(/^data:image\/png;base64,/, "");
+                fs.writeFileSync(path.join('screenshots', sanitize(scenario.getName() + ".png").replace(/ /g, "_")), base64Data, 'base64');
+            });
+        }
+        return global.driver.manage().deleteAllCookies();
     });
 
 };

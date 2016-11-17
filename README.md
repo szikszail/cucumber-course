@@ -1,5 +1,7 @@
 # cucumber-course
 
+[![dependency Status](https://david-dm.org/szikszail/cucumber-course.svg)](https://david-dm.org/szikszail/cucumber-course)
+
 This is a sample Cucumber project for QA Course, demonstrating test automation.
 
 ## Requirements
@@ -21,13 +23,8 @@ This is a sample Cucumber project for QA Course, demonstrating test automation.
     
 ### Manual
 
-    $> npm i -g grunt-cli@0.1.13 selenium-webdriver@2.47.0 cucumber@0.7.0
-    $> webdriver-manager update
+    $> npm i -g grunt@1.0.1
     $> npm i
-    
-## ChromeDriver
-
-After the installation finished, extract `chromedriver_win32.zip` to `C:\Windows\System32`.
     
 ## Running tests
 

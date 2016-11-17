@@ -15,7 +15,8 @@ module.exports = function (grunt) {
             options: {
                 node: true,
                 strict: true,
-                globalstrict: true
+                globalstrict: true,
+                esversion: 6
             }
         },
 

@@ -7,7 +7,7 @@ Feature: Google searching
     Given the Google page is opened
 
     When the text "Epam Debrecen" is entered into the search field
-    Then the first result is "Debreceni iroda: EPAM Systems"
+    Then the first result is "EPAM Systems - Debreceni iroda"
 
-    When the text "Debreceni iroda: EPAM Systems" is clicked
+    When the text "EPAM Systems - Debreceni iroda" is clicked
     Then the Epam Debrecen page should be opened
