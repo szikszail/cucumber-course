@@ -1,8 +1,5 @@
 'use strict';
 module.exports = function () {
-    var driver = global.driver;
-    var expect = global.expect;
-
     var EMAIL_INPUT_SELECTOR = '#Email',
         PWD_INPUT_SELECTOR = '#Passwd',
         NEXT_BUTTON_SELECTOR = '#next',
@@ -27,60 +24,60 @@ module.exports = function () {
     }
 
     this.Given(/^I login to my gmail account$/, function () {
-        driver.get('http://gmail.com');
-        driver.waitFor(ABOUT_SELECTOR);
-        driver.isElementPresent({css: SIGN_IN_BUTTON_SELECTOR}).then(function (present) {
+        global.driver.get('http://gmail.com');
+        global.driver.waitFor(ABOUT_SELECTOR);
+        global.driver.isElementPresent({css: SIGN_IN_BUTTON_SELECTOR}).then(function (present) {
             if (present) {
-                driver.findElement({css: SIGN_IN_BUTTON_SELECTOR}).click();
-                driver.waitFor(NEED_HELP_SELECTOR);
+                global.driver.findElement({css: SIGN_IN_BUTTON_SELECTOR}).click();
+                global.driver.waitFor(NEED_HELP_SELECTOR);
             }
         });
-        driver.findElement({css: EMAIL_INPUT_SELECTOR}).isDisplayed().then(function (displayed) {
+        global.driver.findElement({css: EMAIL_INPUT_SELECTOR}).isDisplayed().then(function (displayed) {
             if (displayed) {
-                driver.findElement({css: EMAIL_INPUT_SELECTOR}).sendKeys('epamdebrecenta');
-                driver.findElement({css: NEXT_BUTTON_SELECTOR}).click();
-                driver.waitFor(PWD_INPUT_SELECTOR);
+                global.driver.findElement({css: EMAIL_INPUT_SELECTOR}).sendKeys('epamdebrecenta');
+                global.driver.findElement({css: NEXT_BUTTON_SELECTOR}).click();
+                global.driver.waitFor(PWD_INPUT_SELECTOR);
             }
         });
-        driver.findElement({css: PWD_INPUT_SELECTOR}).sendKeys('Pass1212');
-        driver.findElement({css: LOGIN_BUTTON_SELECTOR}).click();
-        return driver.waitFor(getMenuItemSelector('inbox'));
+        global.driver.findElement({css: PWD_INPUT_SELECTOR}).sendKeys('Pass1212');
+        global.driver.findElement({css: LOGIN_BUTTON_SELECTOR}).click();
+        return global.driver.waitFor(getMenuItemSelector('inbox'));
     });
 
     this.When(/^I click on "([^"]+)" menu item$/, function (menu) {
-        driver.findElement(getMenuItemSelector(menu)).click();
-        return driver.waitFor(function () {
-            return driver.getCurrentUrl().then(function (url) {
+        global.driver.findElement(getMenuItemSelector(menu)).click();
+        return global.driver.waitFor(function () {
+            return global.driver.getCurrentUrl().then(function (url) {
                 return new RegExp('#' + menu + '$').test(url);
             });
         });
     });
 
     this.When(/^I click on the result "([^"]+)"$/, function (result) {
-        driver.findElement(getResultSelector(result)).click();
-        return driver.waitFor(SUBJECT_HEADER_SELECTOR);
+        global.driver.findElement(getResultSelector(result)).click();
+        return global.driver.waitFor(SUBJECT_HEADER_SELECTOR);
     });
 
     this.Then(/^the first result should be "([^"]+)"$/, function (title) {
-        return driver.findElement({xpath: FIRST_RESULT_XPATH}).getText().then(function (text) {
-            expect(text).to.equal(title);
+        return global.driver.findElement({xpath: FIRST_RESULT_XPATH}).getText().then(function (text) {
+            global.expect(text).to.equal(title);
         });
     });
 
     this.Then(/^the number of the "([^"]+)" results should be (\d+)$/, function (title, results) {
-        return driver.findElements({xpath: ALL_RESULTS_XPATH}).then(function (elements) {
-            expect(elements.length).to.equal(+results);
+        return global.driver.findElements({xpath: ALL_RESULTS_XPATH}).then(function (elements) {
+            global.expect(elements.length).to.equal(+results);
         });
     });
 
     this.Then(/^the text "([^"]+)" should be (displayed|hidden)$/, function (text, status) {
-        return driver.isElementPresent(getElementWithTextSelector(text)).then(function (isPresent) {
+        return global.driver.isElementPresent(getElementWithTextSelector(text)).then(function (isPresent) {
             if (isPresent) {
-                return driver.findElement(getElementWithTextSelector(text)).isDisplayed().then(function (displayed) {
-                    expect(displayed).to.equal(status === "displayed");
+                return global.driver.findElement(getElementWithTextSelector(text)).isDisplayed().then(function (displayed) {
+                    global.expect(displayed).to.equal(status === "displayed");
                 });
             } else {
-                expect(false).to.equal(status === "displayed");
+                global.expect(false).to.equal(status === "displayed");
             }
         });
     });
