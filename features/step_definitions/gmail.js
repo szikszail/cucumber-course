@@ -7,7 +7,7 @@ module.exports = function () {
         PWD_INPUT_SELECTOR = '#Passwd',
         NEXT_BUTTON_SELECTOR = '#next',
         LOGIN_BUTTON_SELECTOR = '#signIn',
-        SIGN_IN_BUTTON_SELECTOR = '#gmail-sign-in',
+        SIGN_IN_BUTTON_SELECTOR = '.gmail-nav__nav-link__sign-in',
         SUBJECT_HEADER_SELECTOR = 'h2.hP',
         NEED_HELP_SELECTOR = '.need-help',
         ABOUT_SELECTOR = 'a[href*="about"]',

@@ -21,21 +21,19 @@ Object.assign(global.driver, {
         });
     },
     waitFor: function (locatorOfFn, timeout) {
-        var waitTimeout = timeout || 60 * 1e3;
+        const waitTimeout = timeout || 60 * 1e3;
         if (typeof locatorOfFn === "function") {
             return global.driver.wait(locatorOfFn, waitTimeout);
         } else {
             if (typeof locatorOfFn === "string") {
                 locatorOfFn = {css: locatorOfFn};
             }
-            return global.driver.wait(function () {
-                return global.driver.isElementVisible(locatorOfFn);
-            }, waitTimeout);
+            return global.driver.wait(() => global.driver.isElementVisible(locatorOfFn), waitTimeout);
         }
     }
 });
 
-var myHooks = function () {
+const myHooks = function () {
     this.registerHandler('BeforeFeatures', function () {
         return global.driver.manage().window().maximize();
     });
